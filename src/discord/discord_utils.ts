@@ -633,7 +633,7 @@ export function createProdClient(): DiscordClient {
 
     if (missing.length > 0) {
         console.info(
-            `Discord not configured  missing environment variables: ${missing.join(
+            `Discord not configured missing environment variables: ${missing.join(
                 ", "
             )}. Discord/Twitch routes are disabled.`
         )
@@ -736,10 +736,10 @@ export function createProdClient(): DiscordClient {
         return disabledClient
     }
 
-    const prodSettings = {
-        publicKey: process.env.PUBLIC_KEY,
-        botToken: process.env.DISCORD_TOKEN,
-        appId: process.env.APP_ID,
+    const prodSettings: DiscordSettings = {
+        publicKey: process.env.PUBLIC_KEY!,
+        botToken: process.env.DISCORD_TOKEN!,
+        appId: process.env.APP_ID!,
         clientSecret: process.env.CLIENT_SECRET,
     }
     return createClient(prodSettings)
