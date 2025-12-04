@@ -356,7 +356,7 @@ export async function storeToken(token: TokenInformation, leagueId: number) {
     blazeId: `${token.blazeId}`,
     leagueId: leagueId,
     destinations: {
-      [DEFAULT_EXPORT]: { autoUpdate: true, leagueInfo: true, rosters: true, weeklyStats: true, url: DEFAULT_EXPORT, editable: false }
+      [DEFAULT_EXPORT]: { autoUpdate: false, leagueInfo: false, rosters: false, weeklyStats: false, url: DEFAULT_EXPORT, editable: true }
     }
   }
   await db.collection("madden_data26").doc(`${leagueId}`).set(leagueConnection)
