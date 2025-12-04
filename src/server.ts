@@ -3,8 +3,8 @@ import bodyParser from "@koa/bodyparser"
 import serve from "koa-static"
 import path from "path"
 import exportRouter from "./export/routes"
-import discordRouter from "./discord/routes"
-import twitchRouter from "./twitch-notifier/routes"
+//import discordRouter from "./discord/routes"
+//import twitchRouter from "./twitch-notifier/routes"
 import connectionsRouter from "./connections/routes"
 import debugRouter from "./debug/routes"
 import dashboard from "./dashboard/routes"
@@ -26,10 +26,10 @@ app
   })
   .use(exportRouter.routes())
   .use(exportRouter.allowedMethods())
-  .use(discordRouter.routes())
-  .use(discordRouter.allowedMethods())
-  .use(twitchRouter.routes())
-  .use(twitchRouter.allowedMethods())
+  //.use(discordRouter.routes())
+  //.use(discordRouter.allowedMethods())
+  //.use(twitchRouter.routes())
+  //.use(twitchRouter.allowedMethods())
   .use(connectionsRouter.routes())
   .use(connectionsRouter.allowedMethods())
   .use(debugRouter.routes())
