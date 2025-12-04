@@ -625,123 +625,19 @@ export enum ResponseType {
   COMMAND,
   INTERACTION
 }
-export function createProdClient(): DiscordClient {
-  const missing: string[] = []
-  if (!process.env.PUBLIC_KEY) missing.push("PUBLIC_KEY")
-  if (!process.env.DISCORD_TOKEN) missing.push("DISCORD_TOKEN")
-  if (!process.env.APP_ID) missing.push("APP_ID")
-
-  if (missing.length > 0) {
-    console.info(
-      `Discord not configured — missing environment variables: ${missing.join(
-        ", "
-      )}. Discord/Twitch routes are disabled.`
-    )
-
-    const disabledClient: DiscordClient = {
-      interactionVerifier: async () => {
-        console.info("interactionVerifier called but Discord is not configured")
-        return false
-      },
-
-      handleSlashCommand: async () => {
-        console.info("handleSlashCommand called but Discord is not configured")
-      },
-
-      editOriginalInteraction: async () => {
-        console.info("editOriginalInteraction called but Discord is not configured")
-      },
-
-      editOriginalInteractionWithForm: async () => {
-        console.info("editOriginalInteractionWithForm called but Discord is not configured")
-      },
-
-      createMessage: async () => {
-        throw new Error("Discord not configured: cannot create message")
-      },
-
-      editMessage: async () => {
-        throw new Error("Discord not configured: cannot edit message")
-      },
-
-      deleteMessage: async () => {
-        throw new Error("Discord not configured: cannot delete message")
-      },
-
-      createChannel: async () => {
-        throw new Error("Discord not configured: cannot create channel")
-      },
-
-      deleteChannel: async () => {
-        throw new Error("Discord not configured: cannot delete channel")
-      },
-
-      getChannel: async () => {
-        throw new Error("Discord not configured: cannot get channel")
-      },
-
-      reactToMessage: async () => {
-        throw new Error("Discord not configured: cannot react to message")
-      },
-
-      getUsersReacted: async () => {
-        throw new Error("Discord not configured: cannot get users who reacted")
-      },
-
-      getMessagesInChannel: async () => {
-        throw new Error("Discord not configured: cannot get messages")
-      },
-
-      createThreadInChannel: async () => {
-        throw new Error("Discord not configured: cannot create thread")
-      },
-
-      checkMessageExists: async () => {
-        console.info("checkMessageExists called but Discord is not configured")
-        return false
-      },
-
-      getUsers: async () => {
-        console.info("getUsers called but Discord is not configured")
-        return []
-      },
-
-      getGuildInformation: async () => {
-        throw new Error("Discord not configured: cannot get guild information")
-      },
-
-      uploadEmoji: async () => {
-        throw new Error("Discord not configured: cannot upload emoji")
-      },
-
-      getBotUser: () => {
-        return { id: "0", id_type: DiscordIdType.USER }
-      },
-
-      retrieveAccessToken: async () => {
-        throw new Error("Discord not configured: cannot retrieve access token")
-      },
-
-      getUserGuilds: async () => {
-        console.info("getUserGuilds called but Discord is not configured")
-        return []
-      },
-
-      generateOAuthRedirect: () => {
-        console.info("generateOAuthRedirect called but Discord is not configured")
-        return ""
-      },
-    }
-
-    return disabledClient
+export function createProdClient() {
+  if (!process.env.PUBLIC_KEY) {
+    throw new Error("No Public Key passed for interaction verification")
   }
 
-  const prodSettings: DiscordSettings = {
-    publicKey: process.env.PUBLIC_KEY!,
-    botToken: process.env.DISCORD_TOKEN!,
-    appId: process.env.APP_ID!,
-    clientSecret: process.env.CLIENT_SECRET,
+  if (!process.env.DISCORD_TOKEN) {
+    throw new Error("No Discord Token passed for interaction verification")
   }
+  if (!process.env.APP_ID) {
+    throw new Error("No App Id passed for interaction verification")
+  }
+
+  const prodSettings = { publicKey: process.env.PUBLIC_KEY, botToken: process.env.DISCORD_TOKEN, appId: process.env.APP_ID, clientSecret: process.env.CLIENT_SECRET }
   return createClient(prodSettings)
 }
 
