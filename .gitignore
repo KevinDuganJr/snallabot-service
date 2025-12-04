@@ -1,3 +1,11 @@
+# Visual Studio temporary files
+*.vs/
+*.opensdf
+*.sdf
+*.cache
+*.tlog
+ipch/
+
 # secret scripts
 run_script.sh
 deploy.sh
@@ -142,3 +150,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+/cfmstats-501b6-firebase-adminsdk-fbsvc-fcf9533ae1.json
