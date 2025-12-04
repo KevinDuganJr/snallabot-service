@@ -85,7 +85,8 @@ html
               p.mb-3.text-muted Manage league connections and quick actions.
               button.btn.btn-danger#unlinkBtn(type="button") Unlink League
               br
-              a.btn.btn-outline-secondary.mt-2(href=`/dashboard/league/${leagueInfo?.leagueId || ''}`) Open League Page
+              - const leagueIdForHref = (typeof leagueInfo !== 'undefined' && leagueInfo && leagueInfo.leagueId) ? leagueInfo.leagueId : ''
+              a.btn.btn-outline-secondary.mt-2(href='/dashboard/league/' + leagueIdForHref) Open League Page
       .row.mt-3
         .col-12
           .card
